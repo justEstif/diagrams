@@ -10,46 +10,49 @@ Shared theme for every diagram in this repo. Keep new diagrams consistent by fol
 
 ## Color tokens
 
-| Role | Hex | Use |
-|---|---|---|
-| `paper` | `#f3f2f0` | Page background (warm-white) |
-| `paper-2` | `#ebe7e4` | Container bg (moonstone) |
-| `ink` | `#252f3d` | Primary text / strokes (evening-blue) |
-| `muted` | `#5c5752` | Secondary text, default arrows (driftwood) |
-| `soft` | `#7d7a76` | Sublabels, boundary labels |
-| `rule` | `rgba(37,47,61,0.12)` | Hairline borders |
-| `accent` | `#b86b52` | Focal element only — max 2 per diagram (terracotta) |
-| `accent-tint` | `rgba(184,107,82,0.08)` | Focal node fill |
-| `link` | `#4b607c` | HTTP/API-call arrows (tidal-blue) |
+| Role          | Hex                     | Use                                                 |
+| ------------- | ----------------------- | --------------------------------------------------- |
+| `paper`       | `#f3f2f0`               | Page background (warm-white)                        |
+| `paper-2`     | `#ebe7e4`               | Container bg (moonstone)                            |
+| `ink`         | `#252f3d`               | Primary text / strokes (evening-blue)               |
+| `muted`       | `#5c5752`               | Secondary text, default arrows (driftwood)          |
+| `soft`        | `#7d7a76`               | Sublabels, boundary labels                          |
+| `rule`        | `rgba(37,47,61,0.12)`   | Hairline borders                                    |
+| `accent`      | `#b86b52`               | Focal element only — max 2 per diagram (terracotta) |
+| `accent-tint` | `rgba(184,107,82,0.08)` | Focal node fill                                     |
+| `link`        | `#4b607c`               | HTTP/API-call arrows (tidal-blue)                   |
 
 Dark variant: invert paper/ink (`#252f3d` / `#f3f2f0`), brighten accent to `#cf8266`.
 
 ## Typography
 
-| Role | Family | Notes |
-|---|---|---|
-| Page title | Instrument Serif, 400, 1.75rem | H1 only |
-| Node names | Geist (sans), 12px, 600 | Human-readable labels |
-| Sublabels / tags / arrow labels | Geist Mono, 7–9px | Technical content only |
-| Aside callouts | Instrument Serif *italic*, 14px | Rarely |
+| Role                            | Family                          | Notes                  |
+| ------------------------------- | ------------------------------- | ---------------------- |
+| Page title                      | Instrument Serif, 400, 1.75rem  | H1 only                |
+| Node names                      | Geist (sans), 12px, 600         | Human-readable labels  |
+| Sublabels / tags / arrow labels | Geist Mono, 7–9px               | Technical content only |
+| Aside callouts                  | Instrument Serif _italic_, 14px | Rarely                 |
 
 Google Fonts link (same in every file):
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
 ```
 
 pi.dev's own fonts (Plantin MT Pro / Commit Mono) are custom-hosted and not redistributable here — the above are the agreed stand-ins.
 
 ## Node treatments
 
-| Type | Fill | Stroke |
-|---|---|---|
-| Focal (≤2) | `accent-tint` | `accent` |
-| Backend / package | `#ffffff` | `ink` |
-| External / cloud | `ink @ 0.03` | `ink @ 0.30` |
-| Unreleased / experimental | `ink @ 0.02` | `ink @ 0.20`, dashed `4,3` |
-| Security / boundary | `accent @ 0.05` | `accent @ 0.50`, dashed `4,4` |
+| Type                      | Fill            | Stroke                        |
+| ------------------------- | --------------- | ----------------------------- |
+| Focal (≤2)                | `accent-tint`   | `accent`                      |
+| Backend / package         | `#ffffff`       | `ink`                         |
+| External / cloud          | `ink @ 0.03`    | `ink @ 0.30`                  |
+| Unreleased / experimental | `ink @ 0.02`    | `ink @ 0.20`, dashed `4,3`    |
+| Security / boundary       | `accent @ 0.05` | `accent @ 0.50`, dashed `4,4` |
 
 ## Rules that keep it looking right
 

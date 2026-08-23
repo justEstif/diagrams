@@ -1,0 +1,10 @@
+#!/bin/sh
+# Format staged HTML/MD/YAML with Prettier before commit
+files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(html|md|yml|yaml)$' || true)
+[ -z "$files" ] && exit 0
+command -v bunx >/dev/null 2>&1 || { echo "pre-commit: bunx not found, skipping format" >&2; exit 0; }
+echo "pre-commit: running prettier on staged files"
+# shellcheck disable=SC2086
+bunx prettier --write $files || { echo "pre-commit: prettier failed" >&2; exit 1; }
+git add $files
+exit 0
