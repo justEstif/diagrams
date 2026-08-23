@@ -65,5 +65,5 @@ pi.dev's own fonts (Plantin MT Pro / Commit Mono) are custom-hosted and not redi
 
 1. Copy `pi-architecture.html` (or generate via the diagram-design skill) and swap content.
 2. Verify tokens against the table above — no ad-hoc colors.
-3. Add an entry to `index.html` (name + meta line).
-4. Commit: `git add -A && git commit -m "<diagram name>" && git push`.
+3. Drop the HTML file in the repo root, or in a subfolder for related diagrams (subfolders appear as grouped sections; a subfolder `index.html` makes the group heading a link).
+4. Commit & push — **`index.html` regenerates automatically** via the `update-index` GitHub Action (title from `<h1>`, meta from the eyebrow `<p>`, plus the file date).
