@@ -1,36 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagrams</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500;600&family=Geist+Mono&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Geist',system-ui,sans-serif;background:#f3f2f0;color:#252f3d;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:3rem 2rem}
-.frame{max-width:640px;width:100%}
-.eyebrow{font-family:'Geist Mono',monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#5c5752;margin-bottom:.5rem}
-h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:1.75rem;margin-bottom:1.5rem}
-ul{list-style:none}
-li{border-top:1px solid rgba(37,47,61,.12)}
-li:last-child{border-bottom:1px solid rgba(37,47,61,.12)}
-a{display:flex;justify-content:space-between;align-items:baseline;padding:1rem .25rem;text-decoration:none;color:#252f3d}
-a:hover .name{color:#b86b52}
-.name{font-weight:600}
-.meta{font-family:'Geist Mono',monospace;font-size:.66rem;color:#7d7a76}
-h2{font-family:'Geist Mono',monospace;font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5c5752;margin:2rem 0 .25rem}
-.group-link{color:inherit;text-decoration:none}
-.group-link:hover{color:#b86b52}
-.colophon{margin-top:2rem;font-family:'Geist Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:#7d7a76}
-</style>
-</head>
-<body>
-<div class="frame">
-<p class="eyebrow">DIAGRAMS</p>
-<h1>Architecture sketches</h1>
-<ul>
-<li><a href="pi-architecture.html"><span class="name">How the Pi packages work together</span><span class="meta">EARENDIL-WORKS / PI MONOREPO — RELEASED + MAIN · 2026-08-23</span></a></li>
-</ul>
-<p class="colophon">JUSTESTIF / DIAGRAMS · AUTO-INDEXED</p>
-</div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diagrams</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500;600&family=Geist+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Geist", system-ui, sans-serif;
+        background: #f3f2f0;
+        color: #252f3d;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 2rem;
+      }
+      .frame {
+        max-width: 640px;
+        width: 100%;
+      }
+      .eyebrow {
+        font-family: "Geist Mono", monospace;
+        font-size: 0.66rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #5c5752;
+        margin-bottom: 0.5rem;
+      }
+      h1 {
+        font-family: "Instrument Serif", serif;
+        font-weight: 400;
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+      }
+      .search {
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+        margin-bottom: 0.5rem;
+        font-family: "Geist Mono", monospace;
+        font-size: 0.72rem;
+        color: #252f3d;
+        background: #ffffff;
+        border: 1px solid rgba(37, 47, 61, 0.12);
+        border-radius: 6px;
+        outline: none;
+      }
+      .search:focus {
+        border-color: #b86b52;
+      }
+      ul {
+        list-style: none;
+        max-height: calc(8 * 3.25rem);
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #c9c3bd transparent;
+      }
+      li {
+        border-top: 1px solid rgba(37, 47, 61, 0.12);
+      }
+      li:last-child {
+        border-bottom: 1px solid rgba(37, 47, 61, 0.12);
+      }
+      a {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 1rem 0.25rem;
+        text-decoration: none;
+        color: #252f3d;
+      }
+      a:hover .name {
+        color: #b86b52;
+      }
+      .name {
+        font-weight: 600;
+      }
+      .meta {
+        font-family: "Geist Mono", monospace;
+        font-size: 0.66rem;
+        color: #7d7a76;
+      }
+      h2 {
+        font-family: "Geist Mono", monospace;
+        font-size: 0.66rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #5c5752;
+        margin: 2rem 0 0.25rem;
+      }
+      .group-link {
+        color: inherit;
+        text-decoration: none;
+      }
+      .group-link:hover {
+        color: #b86b52;
+      }
+      .colophon {
+        margin-top: 2rem;
+        font-family: "Geist Mono", monospace;
+        font-size: 0.62rem;
+        letter-spacing: 0.1em;
+        color: #7d7a76;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <p class="eyebrow">DIAGRAMS</p>
+      <h1>Architecture sketches</h1>
+      <input
+        class="search"
+        id="q"
+        type="search"
+        placeholder="Search diagrams…"
+        autocomplete="off"
+        aria-label="Search diagrams"
+      />
+      <ul id="list">
+        <li>
+          <a href="pi-architecture.html"
+            ><span class="name">How the Pi packages work together</span
+            ><span class="meta"
+              >EARENDIL-WORKS / PI MONOREPO — RELEASED + MAIN · 2026-08-23</span
+            ></a
+          >
+        </li>
+      </ul>
+      <p class="colophon">JUSTESTIF / DIAGRAMS · AUTO-INDEXED</p>
+    </div>
+    <script>
+      document.getElementById("q").addEventListener("input", (e) => {
+        const q = e.target.value.toLowerCase();
+        document.querySelectorAll("#list li").forEach((li) => {
+          li.style.display = li.textContent.toLowerCase().includes(q)
+            ? ""
+            : "none";
+        });
+        document.querySelectorAll("#list h2").forEach((h) => {
+          const items = h.nextElementSibling ? [h.nextElementSibling] : [];
+          // toggle headings with no visible siblings
+          let el = h.nextElementSibling,
+            any = false;
+          const lis = [...document.querySelectorAll("#list li")];
+          // group heading visible if any li between this h2 and next h2 is visible
+          let node = h.nextElementSibling,
+            visible = false;
+          while (node && node.tagName !== "H2") {
+            if (node.tagName === "LI" && node.style.display !== "none")
+              visible = true;
+            node = node.nextElementSibling;
+          }
+          h.style.display = visible ? "" : "none";
+        });
+      });
+    </script>
+  </body>
 </html>
