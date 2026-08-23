@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pi Toolkit Architecture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #f3f2f0;   /* warm-white (pi.dev) */
+      --color-paper-2: #ebe7e4;   /* moonstone */
+      --color-ink:     #252f3d;   /* evening-blue */
+      --color-muted:   #5c5752;   /* driftwood */
+      --color-soft:    #7d7a76;
+      --color-accent:  #b86b52;   /* terracotta */
+      --color-link:    #4b607c;   /* tidal-blue */
+      --font-sans:     'Geist', system-ui, sans-serif;
+      --font-serif:    'Instrument Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    .frame { max-width: 1200px; width: 100%; }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 1.75rem;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--color-muted);
+      margin-bottom: 2rem;
+      max-width: 46rem;
+    }
+
+    .colophon {
+      margin-top: 1.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(37,47,61,0.12);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--color-soft);
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">EARENDIL-WORKS / PI MONOREPO — RELEASED + MAIN</p>
+    <h1>How the Pi packages work together</h1>
+    <p class="subtitle">One harness decomposed into a toolkit: the coding-agent CLI drives an agent loop over a unified LLM API, renders in a terminal UI, and can be driven remotely. Dashed nodes are unreleased on main: SQLite session storage and behavioral evals.</p>
+
+    <svg viewBox="0 0 1120 760" width="100%" role="img" aria-labelledby="pi-arch-title pi-arch-desc" xmlns="http://www.w3.org/2000/svg">
+      <title id="pi-arch-title">Pi toolkit architecture</title>
+      <desc id="pi-arch-desc">Diagram showing the pi coding agent CLI at the top, using the pi-tui rendering library and the pi-agent-core runtime, which calls the pi-ai unified provider API to reach external LLM providers; a remote pi-client controls the CLI; pi-telemetry observes events; an unreleased SQLite session backend stores agent-core sessions; and an unreleased evals package runs agent-core sessions as behavioral tests.</desc>
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#5c5752"/>
+        </marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#b86b52"/>
+        </marker>
+        <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#4b607c"/>
+        </marker>
+      </defs>
+
+      <!-- background -->
+      <rect width="100%" height="100%" fill="#f3f2f0"/>
+
+      <!-- connectors (drawn before nodes) -->
+
+      <!-- coding-agent -> pi-tui (render) -->
+      <path d="M 540,192 V 236 Q 540,244 532,244 H 408 Q 400,244 400,252 V 280"
+            fill="none" stroke="#5c5752" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <rect x="448" y="224" width="48" height="12" rx="2" fill="#f3f2f0"/>
+      <text x="472" y="233" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.06em">RENDER</text>
+
+      <!-- coding-agent -> pi-agent-core (agent loop) -->
+      <path d="M 620,192 V 236 Q 620,244 628,244 H 752 Q 760,244 760,252 V 280"
+            fill="none" stroke="#5c5752" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <rect x="660" y="224" width="60" height="12" rx="2" fill="#f3f2f0"/>
+      <text x="690" y="233" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.06em">AGENT LOOP</text>
+
+      <!-- pi-agent-core -> pi-ai (messages) -->
+      <path d="M 732,344 V 388 Q 732,396 724,396 H 568 Q 560,396 560,404 V 440"
+            fill="none" stroke="#5c5752" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <rect x="622" y="376" width="48" height="12" rx="2" fill="#f3f2f0"/>
+      <text x="646" y="385" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.06em">MESSAGES</text>
+
+      <!-- agent-core -> session-backend (sessions, unreleased dashed) -->
+      <line x1="860" y1="312" x2="896" y2="312" stroke="#5c5752" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+      <rect x="844" y="292" width="72" height="12" rx="2" fill="#f3f2f0"/>
+      <text x="880" y="301" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.06em">JSONL·SQL</text>
+
+      <!-- pi-ai -> providers (https) -->
+      <line x1="500" y1="504" x2="500" y2="588" stroke="#4b607c" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+      <rect x="452" y="524" width="96" height="12" rx="2" fill="#f3f2f0"/>
+      <text x="500" y="533" fill="#4b607c" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.06em">HTTPS·STREAM</text>
+
+      <!-- providers external boundary strip (drawn after arrows so the line ends at its edge) -->
+      <rect x="420" y="596" width="240" height="56" rx="6" fill="rgba(37,47,61,0.03)" stroke="rgba(37,47,61,0.30)" stroke-width="0.8" stroke-dasharray="4,4"/>
+      <rect x="432" y="602" width="64" height="12" rx="2" fill="transparent" stroke="rgba(37,47,61,0.25)" stroke-width="0.8"/>
+      <text x="464" y="611" fill="rgba(37,47,61,0.70)" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">EXTERNAL</text>
+      <text x="540" y="628" fill="#252f3d" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">LLM providers</text>
+      <text x="540" y="644" fill="#5c5752" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">openai · anthropic · google · …</text>
+
+      <!-- pi-client -> coding-agent (remote, dashed) -->
+      <line x1="840" y1="152" x2="704" y2="152" stroke="#5c5752" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+      <rect x="742" y="132" width="56" height="12" rx="2" fill="#f3f2f0"/>
+      <text x="770" y="141" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.06em">CBOR·RPC</text>
+
+      <!-- pi-telemetry <- events (dashed, passive) -->
+      <line x1="400" y1="472" x2="260" y2="472" stroke="#5c5752" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+      <rect x="306" y="452" width="48" height="12" rx="2" fill="#f3f2f0"/>
+      <text x="330" y="461" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.06em">EVENTS</text>
+
+      <!-- pi-evals -> agent-core (runs sessions, unreleased dashed) -->
+      <line x1="788" y1="596" x2="788" y2="348" stroke="#5c5752" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+      <rect x="796" y="452" width="56" height="12" rx="2" fill="#f3f2f0"/>
+      <text x="824" y="461" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.06em">RUNS</text>
+
+      <!-- nodes -->
+
+      <!-- focal: pi-coding-agent -->
+      <rect x="460" y="120" width="240" height="72" rx="6" fill="rgba(184,107,82,0.08)" stroke="#b86b52" stroke-width="1"/>
+      <rect x="468" y="126" width="36" height="12" rx="2" fill="transparent" stroke="rgba(184,107,82,0.40)" stroke-width="0.8"/>
+      <text x="486" y="135" fill="rgba(184,107,82,0.90)" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">CLI</text>
+      <text x="580" y="160" fill="#252f3d" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">pi-coding-agent</text>
+      <text x="580" y="176" fill="#5c5752" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">interactive · print · rpc · sdk</text>
+
+      <!-- pi-tui -->
+      <rect x="300" y="280" width="200" height="64" rx="6" fill="#ffffff" stroke="#252f3d" stroke-width="1"/>
+      <rect x="308" y="286" width="28" height="12" rx="2" fill="transparent" stroke="rgba(37,47,61,0.40)" stroke-width="0.8"/>
+      <text x="322" y="295" fill="rgba(37,47,61,0.80)" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">TUI</text>
+      <text x="400" y="316" fill="#252f3d" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">pi-tui</text>
+      <text x="400" y="332" fill="#5c5752" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">terminal rendering</text>
+
+      <!-- pi-agent-core -->
+      <rect x="660" y="280" width="200" height="64" rx="6" fill="#ffffff" stroke="#252f3d" stroke-width="1"/>
+      <rect x="668" y="286" width="48" height="12" rx="2" fill="transparent" stroke="rgba(37,47,61,0.40)" stroke-width="0.8"/>
+      <text x="692" y="295" fill="rgba(37,47,61,0.80)" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">RUNTIME</text>
+      <text x="760" y="316" fill="#252f3d" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">pi-agent-core</text>
+      <text x="760" y="332" fill="#5c5752" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">agent loop · state</text>
+
+      <!-- session-backends (unreleased, dashed) -->
+      <rect x="900" y="280" width="200" height="64" rx="6" fill="rgba(37,47,61,0.02)" stroke="rgba(37,47,61,0.20)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="908" y="286" width="56" height="12" rx="2" fill="transparent" stroke="rgba(37,47,61,0.20)" stroke-width="0.8"/>
+      <text x="936" y="295" fill="rgba(37,47,61,0.60)" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">MAIN</text>
+      <text x="1000" y="316" fill="#252f3d" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">session-backends</text>
+      <text x="1000" y="332" fill="#5c5752" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">sqlite-node · FTS</text>
+
+      <!-- pi-ai -->
+      <rect x="400" y="440" width="200" height="64" rx="6" fill="#ffffff" stroke="#252f3d" stroke-width="1"/>
+      <rect x="408" y="446" width="52" height="12" rx="2" fill="transparent" stroke="rgba(37,47,61,0.40)" stroke-width="0.8"/>
+      <text x="434" y="455" fill="rgba(37,47,61,0.80)" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">LLM API</text>
+      <text x="500" y="476" fill="#252f3d" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">pi-ai</text>
+      <text x="500" y="492" fill="#5c5752" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">unified providers</text>
+
+      <!-- pi-telemetry (cross-cutting, dashed) -->
+      <rect x="60" y="440" width="200" height="64" rx="6" fill="rgba(37,47,61,0.02)" stroke="rgba(37,47,61,0.20)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="68" y="446" width="64" height="12" rx="2" fill="transparent" stroke="rgba(37,47,61,0.20)" stroke-width="0.8"/>
+      <text x="100" y="455" fill="rgba(37,47,61,0.60)" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">OTEL</text>
+      <text x="160" y="476" fill="#252f3d" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">pi-telemetry</text>
+      <text x="160" y="492" fill="#5c5752" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">events · traces</text>
+
+      <!-- pi-evals (unreleased, dashed) -->
+      <rect x="700" y="596" width="200" height="64" rx="6" fill="rgba(37,47,61,0.02)" stroke="rgba(37,47,61,0.20)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="708" y="602" width="56" height="12" rx="2" fill="transparent" stroke="rgba(37,47,61,0.20)" stroke-width="0.8"/>
+      <text x="736" y="611" fill="rgba(37,47,61,0.60)" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">MAIN</text>
+      <text x="800" y="632" fill="#252f3d" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">pi-evals</text>
+      <text x="800" y="648" fill="#5c5752" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">vitest-evals harness</text>
+
+      <!-- legend strip -->
+      <line x1="30" y1="696" x2="1090" y2="696" stroke="rgba(37,47,61,0.12)" stroke-width="0.8"/>
+      <text x="30" y="714" fill="#5c5752" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">LEGEND</text>
+      <rect x="110" y="707" width="12" height="8" rx="1" fill="rgba(184,107,82,0.08)" stroke="#b86b52" stroke-width="0.8"/>
+      <text x="128" y="714" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace">focal</text>
+      <rect x="200" y="707" width="12" height="8" rx="1" fill="#ffffff" stroke="#252f3d" stroke-width="0.8"/>
+      <text x="218" y="714" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace">released package</text>
+      <rect x="336" y="707" width="12" height="8" rx="1" fill="rgba(37,47,61,0.02)" stroke="rgba(37,47,61,0.20)" stroke-width="0.8" stroke-dasharray="3,2"/>
+      <text x="354" y="714" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace">cross-cutting / unreleased (main)</text>
+      <line x1="680" y1="711" x2="704" y2="711" stroke="rgba(37,47,61,0.30)" stroke-width="1" stroke-dasharray="4,4"/>
+      <text x="710" y="714" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace">external boundary</text>
+      <line x1="824" y1="711" x2="848" y2="711" stroke="#4b607c" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+      <text x="854" y="714" fill="#7d7a76" font-size="8" font-family="'Geist Mono', monospace">api call</text>
+    </svg>
+
+    <div class="colophon">
+      <span>DIAGRAM-DESIGN · PI.DEV SKIN</span>
+      <span>SOURCE: github.com/earendil-works/pi · v0.84 + main</span>
+    </div>
+  </div>
+</body>
+</html>
