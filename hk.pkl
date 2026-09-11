@@ -1,0 +1,31 @@
+amends "package://github.com/jdx/hk/releases/download/v1.58.1/hk@1.58.1#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v1.58.1/hk@1.58.1#/Builtins.pkl"
+// Using a coding agent? See https://hk.jdx.dev/agents
+
+local linters = new Mapping<String, Step> {
+    ["oxlint"] = (Builtins.ox_lint) {
+        check = "npm exec oxlint -- --deny-warnings --type-aware {{files}}"
+    }
+    ["oxfmt"] = (Builtins.oxfmt) {
+        check = "npm exec oxfmt -- --check {{files}}"
+        fix = "npm exec oxfmt -- --write {{files}}"
+    }
+    ["tsc"] = (Builtins.tsc) {
+        check = "npm exec tsc -- --noEmit -p tsconfig.json"
+    }
+}
+
+hooks {
+    ["pre-commit"] {
+        fix = true
+        stash = "git"
+        steps = linters
+    }
+    ["check"] {
+        steps = linters
+    }
+    ["fix"] {
+        fix = true
+        steps = linters
+    }
+}

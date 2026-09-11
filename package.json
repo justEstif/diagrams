@@ -1,18 +1,19 @@
 {
   "name": "slides",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "open-slide dev",
     "build": "open-slide build",
     "preview": "open-slide preview",
     "sync:skills": "open-slide sync:skills",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "lint": "eslint . --max-warnings=0",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint . --deny-warnings --type-aware",
     "typecheck": "tsc --noEmit",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run build"
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run build",
+    "hooks:install": "hk install --mise"
   },
   "dependencies": {
     "@open-slide/core": "^1.17.1",
@@ -20,18 +21,12 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@eslint/markdown": "^7.5.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "eslint": "^9.39.5",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-sonarjs": "^3.0.7",
-    "prettier": "^3.9.6",
+    "oxfmt": "^0.67.0",
+    "oxlint": "^1.82.0",
+    "oxlint-tsgolint": "^7.0.2001",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.70.0",
     "vite": "^5.4.10"
   }
 }

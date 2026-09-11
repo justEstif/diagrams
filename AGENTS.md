@@ -22,9 +22,10 @@ Keep this file short: hard rules only. All deeper guidance lives in the skills a
 
 ## Quality checks
 
-- Run `npm run format` after editing supported files.
-- Run `npm run check` before committing. It verifies formatting, lint rules, types, and the production build.
-- Keep authored TypeScript/TSX files below 1,200 nonblank, non-comment lines and functions below 180 lines.
+- Run `npm run format` after editing supported files. Oxfmt is the formatter.
+- Run `npm run check` before committing. It verifies formatting, Oxlint rules, types, and the production build.
+- Keep authored TypeScript/TSX files below 1,000 nonblank, non-comment lines and functions below 300 lines.
+- Fix lint and type errors directly. Do not weaken rules or add suppression comments to bypass the gate.
 
 ## Updating skills
 

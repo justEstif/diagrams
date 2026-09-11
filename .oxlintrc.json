@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "typescript", "react", "jsx-a11y", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error"
+  },
+  "rules": {
+    "complexity": ["error", 12],
+    "max-depth": ["error", 4],
+    "max-lines": ["error", { "max": 1000, "skipBlankLines": true, "skipComments": true }],
+    "max-lines-per-function": [
+      "error",
+      { "max": 300, "skipBlankLines": true, "skipComments": true }
+    ],
+    "max-params": ["error", 4],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "react/react-in-jsx-scope": "off",
+    "react/exhaustive-deps": "error",
+    "react/rules-of-hooks": "error"
+  },
+  "ignorePatterns": ["dist/**", "node_modules/**", ".agents/**", ".claude/**"],
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "es2024": true
+  }
+}

@@ -1,9 +1,4 @@
-import type {
-  DesignSystem,
-  Page,
-  SlideMeta,
-  SlideTransition,
-} from '@open-slide/core';
+import type { Page, SlideMeta } from '@open-slide/core';
 
 import bane from './assets/bane.jpg';
 import batman from './assets/batman.jpg';
@@ -11,224 +6,19 @@ import gotham from './assets/gotham.png';
 import greenArrow from './assets/green-arrow.jpg';
 import joker from './assets/joker.jpg';
 
-export const design: DesignSystem = {
-  palette: {
-    bg: '#080a0d',
-    text: '#f4f0e6',
-    accent: '#ffd21c',
-  },
-  fonts: {
-    display: 'Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif',
-    body: 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
-  },
-  typeScale: {
-    hero: 176,
-    body: 40,
-  },
-  radius: 18,
-};
+import {
+  Bullet,
+  CoinCard,
+  colors,
+  display,
+  Eyebrow,
+  fill,
+  Footer,
+  Portrait,
+  Rule,
+} from './components';
 
-const colors = {
-  surface: '#12161c',
-  surfaceHigh: '#1a2028',
-  muted: '#9aa3ad',
-  red: '#e5484d',
-  redSoft: '#36171b',
-  green: '#70b77e',
-  greenSoft: '#13291a',
-  line: 'rgba(244,240,230,0.16)',
-};
-
-const fill = {
-  width: '100%',
-  height: '100%',
-  background: 'var(--osd-bg)',
-  color: 'var(--osd-text)',
-  fontFamily: 'var(--osd-font-body)',
-  position: 'relative' as const,
-  overflow: 'hidden',
-};
-
-const display = {
-  fontFamily: 'var(--osd-font-display)',
-  textTransform: 'uppercase' as const,
-  letterSpacing: '0.015em',
-  lineHeight: 0.94,
-};
-
-const transitionEaseOut = 'cubic-bezier(0, 0, 0.2, 1)';
-const transitionEaseIn = 'cubic-bezier(0.4, 0, 1, 1)';
-
-export const transition: SlideTransition = {
-  duration: 220,
-  exit: {
-    duration: 150,
-    easing: transitionEaseIn,
-    keyframes: [
-      { opacity: 1, transform: 'translateY(0)' },
-      { opacity: 0, transform: 'translateY(-4px)' },
-    ],
-  },
-  enter: {
-    duration: 220,
-    delay: 80,
-    easing: transitionEaseOut,
-    keyframes: [
-      { opacity: 0, transform: 'translateY(6px)' },
-      { opacity: 1, transform: 'translateY(0)' },
-    ],
-  },
-};
-
-const Eyebrow = ({
-  children,
-  color = 'var(--osd-accent)',
-}: {
-  children: React.ReactNode;
-  color?: string;
-}) => (
-  <div
-    style={{
-      color,
-      fontSize: 24,
-      fontWeight: 800,
-      letterSpacing: '0.19em',
-      textTransform: 'uppercase',
-    }}
-  >
-    {children}
-  </div>
-);
-
-const Rule = ({
-  color = 'var(--osd-accent)',
-  width = 110,
-}: {
-  color?: string;
-  width?: number;
-}) => <div style={{ width, height: 10, background: color, marginTop: 30 }} />;
-
-const Footer = ({ section }: { section: string }) => (
-  <div
-    style={{
-      position: 'absolute',
-      left: 120,
-      right: 120,
-      bottom: 48,
-      display: 'flex',
-      alignItems: 'center',
-      gap: 18,
-      color: colors.muted,
-      fontSize: 22,
-      letterSpacing: '0.05em',
-    }}
-  >
-    <span style={{ width: 42, height: 4, background: 'var(--osd-accent)' }} />
-    Batman’s No-Kill Rule
-    <span style={{ opacity: 0.45 }}>·</span>
-    {section}
-  </div>
-);
-
-const Portrait = ({
-  src,
-  alt,
-  accent = 'var(--osd-accent)',
-}: {
-  src: string;
-  alt: string;
-  accent?: string;
-}) => (
-  <div style={{ position: 'relative', width: 500, height: 650 }}>
-    <div
-      style={{
-        position: 'absolute',
-        inset: '36px -36px -36px 36px',
-        borderRadius: 'var(--osd-radius)',
-        background: accent,
-        opacity: 0.22,
-      }}
-    />
-    <img
-      src={src}
-      alt={alt}
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        objectPosition: 'center top',
-        borderRadius: 'var(--osd-radius)',
-        border: `3px solid ${colors.line}`,
-        filter: 'contrast(1.08) saturate(0.8)',
-      }}
-    />
-  </div>
-);
-
-const Bullet = ({
-  children,
-  accent = 'var(--osd-accent)',
-}: {
-  children: React.ReactNode;
-  accent?: string;
-}) => (
-  <div
-    style={{
-      display: 'flex',
-      alignItems: 'flex-start',
-      gap: 24,
-      fontSize: 38,
-      lineHeight: 1.38,
-    }}
-  >
-    <span
-      style={{
-        width: 13,
-        height: 13,
-        marginTop: 19,
-        flex: '0 0 auto',
-        background: accent,
-      }}
-    />
-    <span>{children}</span>
-  </div>
-);
-
-const CoinCard = ({
-  title,
-  children,
-  accent = 'var(--osd-accent)',
-}: {
-  title: string;
-  children: React.ReactNode;
-  accent?: string;
-}) => (
-  <div
-    style={{
-      flex: 1,
-      minHeight: 470,
-      padding: '58px 56px',
-      background: colors.surface,
-      borderTop: `12px solid ${accent}`,
-      borderRadius: '0 0 var(--osd-radius) var(--osd-radius)',
-    }}
-  >
-    <h3 style={{ ...display, margin: 0, color: accent, fontSize: 58 }}>
-      {title}
-    </h3>
-    <div
-      style={{
-        marginTop: 42,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 24,
-      }}
-    >
-      {children}
-    </div>
-  </div>
-);
+export { design, transition } from './components';
 
 const Cover: Page = () => (
   <div style={fill}>
@@ -283,25 +73,17 @@ const Cover: Page = () => (
             gap: 28,
           }}
         >
-          <span
-            style={{ width: 120, height: 10, background: 'var(--osd-accent)' }}
-          />
-          <span style={{ fontSize: 42, color: colors.muted }}>
-            Two sides of the coin
-          </span>
+          <span style={{ width: 120, height: 10, background: 'var(--osd-accent)' }} />
+          <span style={{ fontSize: 42, color: colors.muted }}>Two sides of the coin</span>
         </div>
       </div>
-      <div style={{ color: colors.muted, fontSize: 25 }}>
-        A conversation, not a verdict
-      </div>
+      <div style={{ color: colors.muted, fontSize: 25 }}>A conversation, not a verdict</div>
     </div>
   </div>
 );
 
 const SimpleRule: Page = () => (
-  <div
-    style={{ ...fill, display: 'grid', gridTemplateColumns: '1.18fr 0.82fr' }}
-  >
+  <div style={{ ...fill, display: 'grid', gridTemplateColumns: '1.18fr 0.82fr' }}>
     <div
       style={{
         padding: '110px 100px 110px 130px',
@@ -311,9 +93,7 @@ const SimpleRule: Page = () => (
       }}
     >
       <Eyebrow>The moral boundary</Eyebrow>
-      <h2 style={{ ...display, margin: '34px 0 0', fontSize: 92 }}>
-        The rule sounds simple.
-      </h2>
+      <h2 style={{ ...display, margin: '34px 0 0', fontSize: 92 }}>The rule sounds simple.</h2>
       <blockquote
         style={{
           margin: '60px 0 0',
@@ -355,9 +135,7 @@ const SimpleRule: Page = () => (
 const WhoBenefits: Page = () => (
   <div style={{ ...fill, padding: '120px 140px' }}>
     <Eyebrow>Who benefits?</Eyebrow>
-    <h2 style={{ ...display, margin: '30px 0 0', fontSize: 106 }}>
-      Three possible answers.
-    </h2>
+    <h2 style={{ ...display, margin: '30px 0 0', fontSize: 106 }}>Three possible answers.</h2>
     <div
       style={{
         marginTop: 74,
@@ -384,9 +162,7 @@ const WhoBenefits: Page = () => (
         >
           01
         </div>
-        <div style={{ marginTop: 34, fontSize: 42, fontWeight: 750 }}>
-          Gotham’s victims
-        </div>
+        <div style={{ marginTop: 34, fontSize: 42, fontWeight: 750 }}>Gotham’s victims</div>
       </div>
       <div
         style={{
@@ -406,9 +182,7 @@ const WhoBenefits: Page = () => (
         >
           02
         </div>
-        <div style={{ marginTop: 34, fontSize: 42, fontWeight: 750 }}>
-          The criminals he fights
-        </div>
+        <div style={{ marginTop: 34, fontSize: 42, fontWeight: 750 }}>The criminals he fights</div>
       </div>
       <div
         style={{
@@ -428,9 +202,7 @@ const WhoBenefits: Page = () => (
         >
           03
         </div>
-        <div style={{ marginTop: 34, fontSize: 42, fontWeight: 750 }}>
-          Batman himself
-        </div>
+        <div style={{ marginTop: 34, fontSize: 42, fontWeight: 750 }}>Batman himself</div>
       </div>
     </div>
     <Footer section="The boundary" />
@@ -438,9 +210,7 @@ const WhoBenefits: Page = () => (
 );
 
 const JokerCycle: Page = () => (
-  <div
-    style={{ ...fill, display: 'grid', gridTemplateColumns: '0.78fr 1.22fr' }}
-  >
+  <div style={{ ...fill, display: 'grid', gridTemplateColumns: '0.78fr 1.22fr' }}>
     <div
       style={{
         display: 'flex',
@@ -449,11 +219,7 @@ const JokerCycle: Page = () => (
         paddingLeft: 120,
       }}
     >
-      <Portrait
-        src={joker}
-        alt="The Joker in a purple suit"
-        accent={colors.red}
-      />
+      <Portrait src={joker} alt="The Joker in a purple suit" accent={colors.red} />
     </div>
     <div
       style={{
@@ -464,9 +230,7 @@ const JokerCycle: Page = () => (
       }}
     >
       <Eyebrow color={colors.red}>The recurring test</Eyebrow>
-      <h2 style={{ ...display, margin: '30px 0 0', fontSize: 92 }}>
-        The Joker makes it concrete.
-      </h2>
+      <h2 style={{ ...display, margin: '30px 0 0', fontSize: 92 }}>The Joker makes it concrete.</h2>
       <div
         style={{
           marginTop: 55,
@@ -529,15 +293,9 @@ const JasonQuestion: Page = () => (
         gap: 23,
       }}
     >
-      <Bullet accent={colors.red}>
-        Batman knows exactly what the Joker will do.
-      </Bullet>
-      <Bullet accent={colors.red}>
-        Batman has the power to end the cycle.
-      </Bullet>
-      <Bullet accent={colors.red}>
-        By refusing, he makes everyone else pay for his line.
-      </Bullet>
+      <Bullet accent={colors.red}>Batman knows exactly what the Joker will do.</Bullet>
+      <Bullet accent={colors.red}>Batman has the power to end the cycle.</Bullet>
+      <Bullet accent={colors.red}>By refusing, he makes everyone else pay for his line.</Bullet>
     </div>
     <div
       style={{
@@ -559,9 +317,7 @@ const JasonQuestion: Page = () => (
 const Leash: Page = () => (
   <div style={{ ...fill, padding: '105px 140px' }}>
     <Eyebrow>The rule as restraint</Eyebrow>
-    <h2 style={{ ...display, margin: '28px 0 0', fontSize: 98 }}>
-      The rule is a leash.
-    </h2>
+    <h2 style={{ ...display, margin: '28px 0 0', fontSize: 98 }}>The rule is a leash.</h2>
     <div
       style={{
         marginTop: 58,
@@ -615,9 +371,7 @@ const Identity: Page = () => (
     }}
   >
     <Eyebrow>The psychological defense</Eyebrow>
-    <h2 style={{ ...display, margin: '28px 0 0', fontSize: 96 }}>
-      The rule protects an identity.
-    </h2>
+    <h2 style={{ ...display, margin: '28px 0 0', fontSize: 96 }}>The rule protects an identity.</h2>
     <div
       style={{
         marginTop: 55,
@@ -641,9 +395,7 @@ const Identity: Page = () => (
     >
       Dying is acceptable.
       <br />
-      <span style={{ color: 'var(--osd-accent)' }}>
-        Becoming someone who kills is not.
-      </span>
+      <span style={{ color: 'var(--osd-accent)' }}>Becoming someone who kills is not.</span>
     </div>
     <Rule />
     <Footer section="Identity" />
@@ -659,9 +411,7 @@ const Ras: Page = () => (
     }}
   >
     <Eyebrow color={colors.green}>Ra’s al Ghul</Eyebrow>
-    <h2 style={{ ...display, margin: '28px 0 0', fontSize: 94 }}>
-      Sacrifice without restraint.
-    </h2>
+    <h2 style={{ ...display, margin: '28px 0 0', fontSize: 94 }}>Sacrifice without restraint.</h2>
     <div
       style={{
         marginTop: 56,
@@ -758,8 +508,7 @@ const BaneAttack: Page = () => (
           maxWidth: 880,
         }}
       >
-        He does not defeat Batman’s morality. He weaponizes Batman’s willingness
-        to suffer.
+        He does not defeat Batman’s morality. He weaponizes Batman’s willingness to suffer.
       </p>
       <div
         style={{
@@ -808,9 +557,7 @@ const GothamSystem: Page = () => (
       />
     </div>
     <Eyebrow>Beyond individual villains</Eyebrow>
-    <h2
-      style={{ ...display, margin: '28px 0 0', fontSize: 98, maxWidth: 1120 }}
-    >
+    <h2 style={{ ...display, margin: '28px 0 0', fontSize: 98, maxWidth: 1120 }}>
       Gotham is the bigger villain.
     </h2>
     <div
@@ -861,11 +608,7 @@ const GreenArrowContrast: Page = () => (
         paddingLeft: 120,
       }}
     >
-      <Portrait
-        src={greenArrow}
-        alt="Green Arrow holding his bow"
-        accent={colors.green}
-      />
+      <Portrait src={greenArrow} alt="Green Arrow holding his bow" accent={colors.green} />
     </div>
     <div
       style={{
@@ -926,9 +669,7 @@ const GreenArrowContrast: Page = () => (
 const TwoSides: Page = () => (
   <div style={{ ...fill, padding: '100px 130px' }}>
     <Eyebrow>The unresolved tension</Eyebrow>
-    <h2 style={{ ...display, margin: '26px 0 0', fontSize: 92 }}>
-      Two sides of the coin.
-    </h2>
+    <h2 style={{ ...display, margin: '26px 0 0', fontSize: 92 }}>Two sides of the coin.</h2>
     <div style={{ marginTop: 54, display: 'flex', gap: 38 }}>
       <CoinCard title="Admirable">
         <Bullet>Limits an unaccountable vigilante</Bullet>
@@ -939,9 +680,7 @@ const TwoSides: Page = () => (
       <CoinCard title="Troubling" accent={colors.red}>
         <Bullet accent={colors.red}>Others pay for Bruce’s boundary</Bullet>
         <Bullet accent={colors.red}>The Joker exposes its consequences</Bullet>
-        <Bullet accent={colors.red}>
-          Self-image may outrank public safety
-        </Bullet>
+        <Bullet accent={colors.red}>Self-image may outrank public safety</Bullet>
         <Bullet accent={colors.red}>Sacrifice is not responsibility</Bullet>
       </CoinCard>
     </div>
@@ -960,9 +699,7 @@ const Verdict: Page = () => (
     }}
   >
     <Eyebrow>So… is Batman right?</Eyebrow>
-    <h2
-      style={{ ...display, margin: '38px 0 0', fontSize: 115, maxWidth: 1600 }}
-    >
+    <h2 style={{ ...display, margin: '38px 0 0', fontSize: 115, maxWidth: 1600 }}>
       A moral rule can protect others, restrain power, and defend the self—
       <span style={{ color: 'var(--osd-accent)' }}>all at once.</span>
     </h2>
@@ -1079,26 +816,23 @@ const Credits: Page = () => (
       }}
     >
       <div>
-        <strong style={{ color: 'var(--osd-text)' }}>Batman:</strong> created by
-        Bob Kane and Bill Finger.
+        <strong style={{ color: 'var(--osd-text)' }}>Batman:</strong> created by Bob Kane and Bill
+        Finger.
       </div>
       <div>
-        <strong style={{ color: 'var(--osd-text)' }}>Ra’s al Ghul:</strong>{' '}
-        created by Denny O’Neil, Neal Adams, and Julius Schwartz.
+        <strong style={{ color: 'var(--osd-text)' }}>Ra’s al Ghul:</strong> created by Denny O’Neil,
+        Neal Adams, and Julius Schwartz.
       </div>
       <div>
-        <strong style={{ color: 'var(--osd-text)' }}>
-          Character portraits:
-        </strong>{' '}
-        DC.com.
+        <strong style={{ color: 'var(--osd-text)' }}>Character portraits:</strong> DC.com.
       </div>
       <div>
-        <strong style={{ color: 'var(--osd-text)' }}>Gotham image:</strong> DC
-        Comics, sourced through Wikimedia Commons.
+        <strong style={{ color: 'var(--osd-text)' }}>Gotham image:</strong> DC Comics, sourced
+        through Wikimedia Commons.
       </div>
       <div>
-        <strong style={{ color: 'var(--osd-text)' }}>Discussion:</strong>{' '}
-        adapted from the accompanying nb-vault note.
+        <strong style={{ color: 'var(--osd-text)' }}>Discussion:</strong> adapted from the
+        accompanying nb-vault note.
       </div>
     </div>
     <Rule />

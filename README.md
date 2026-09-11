@@ -5,7 +5,9 @@ Slides as React components. Each slide lives under `slides/<id>/index.tsx` and d
 ## Getting started
 
 ```bash
+mise install
 npm install
+npm run hooks:install
 npm run dev
 ```
 
@@ -13,15 +15,16 @@ Then open the dev server and edit an existing deck, or create a new slide at `sl
 
 ## Scripts
 
-| Command             | Description                                       |
-| ------------------- | ------------------------------------------------- |
-| `npm run dev`       | Start the dev server with hot reload.             |
-| `npm run build`     | Build a static bundle you can deploy.             |
-| `npm run format`    | Format supported files with Prettier.             |
-| `npm run lint`      | Run ESLint with zero warnings allowed.            |
-| `npm run typecheck` | Type-check the workspace without emitting files.  |
-| `npm run check`     | Run formatting, linting, types, and build checks. |
-| `npm run preview`   | Preview the built bundle locally.                 |
+| Command                 | Description                                       |
+| ----------------------- | ------------------------------------------------- |
+| `npm run dev`           | Start the dev server with hot reload.             |
+| `npm run build`         | Build a static bundle you can deploy.             |
+| `npm run format`        | Format supported files with Oxfmt.                |
+| `npm run lint`          | Run type-aware Oxlint with zero warnings allowed. |
+| `npm run typecheck`     | Type-check the workspace without emitting files.  |
+| `npm run check`         | Run formatting, linting, types, and build checks. |
+| `npm run hooks:install` | Install the hk-managed Git hooks.                 |
+| `npm run preview`       | Preview the built bundle locally.                 |
 
 ## Authoring a slide
 
@@ -29,9 +32,7 @@ Then open the dev server and edit an existing deck, or create a new slide at `sl
 // slides/my-slide/index.tsx
 import type { Page, SlideMeta } from '@open-slide/core';
 
-const Cover: Page = () => (
-  <div style={{ width: '100%', height: '100%' }}>Hello</div>
-);
+const Cover: Page = () => <div style={{ width: '100%', height: '100%' }}>Hello</div>;
 
 export const meta: SlideMeta = { title: 'My slide' };
 export default [Cover] satisfies Page[];
