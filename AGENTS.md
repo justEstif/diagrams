@@ -20,13 +20,19 @@ You are authoring **slides** in this repo. Every slide is arbitrary React code t
 
 Keep this file short: hard rules only. All deeper guidance lives in the skills above.
 
+## Quality checks
+
+- Run `npm run format` after editing supported files.
+- Run `npm run check` before committing. It verifies formatting, lint rules, types, and the production build.
+- Keep authored TypeScript/TSX files below 1,200 nonblank, non-comment lines and functions below 180 lines.
+
 ## Updating skills
 
 The skills above are managed by `@open-slide/core`. Do not edit them in place. To pull the latest versions:
 
-```
-pnpm up @open-slide/core
-pnpm sync:skills
+```bash
+npm update @open-slide/core
+npm run sync:skills
 ```
 
-`pnpm dev` will also detect drift on startup and offer to sync. `pnpm sync:skills --dry-run` (via `pnpm exec open-slide sync:skills --dry-run`) previews changes without writing.
+`npm run dev` will also detect drift on startup and offer to sync. `npm exec open-slide sync:skills -- --dry-run` previews changes without writing.

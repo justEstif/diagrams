@@ -5,31 +5,35 @@ Slides as React components. Each slide lives under `slides/<id>/index.tsx` and d
 ## Getting started
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
-Then open the dev server and edit `slides/getting-started/index.tsx`, or create a new slide at `slides/<your-slide>/index.tsx`.
+Then open the dev server and edit an existing deck, or create a new slide at `slides/<your-slide>/index.tsx`.
 
 ## Scripts
 
-| Command        | Description                           |
-| -------------- | ------------------------------------- |
-| `pnpm dev`     | Start the dev server with hot reload. |
-| `pnpm build`   | Build a static bundle you can deploy. |
-| `pnpm preview` | Preview the built bundle locally.     |
+| Command             | Description                                       |
+| ------------------- | ------------------------------------------------- |
+| `npm run dev`       | Start the dev server with hot reload.             |
+| `npm run build`     | Build a static bundle you can deploy.             |
+| `npm run format`    | Format supported files with Prettier.             |
+| `npm run lint`      | Run ESLint with zero warnings allowed.            |
+| `npm run typecheck` | Type-check the workspace without emitting files.  |
+| `npm run check`     | Run formatting, linting, types, and build checks. |
+| `npm run preview`   | Preview the built bundle locally.                 |
 
 ## Authoring a slide
 
 ```tsx
 // slides/my-slide/index.tsx
-import type { Page, SlideMeta } from "@open-slide/core";
+import type { Page, SlideMeta } from '@open-slide/core';
 
 const Cover: Page = () => (
-  <div style={{ width: "100%", height: "100%" }}>Hello</div>
+  <div style={{ width: '100%', height: '100%' }}>Hello</div>
 );
 
-export const meta: SlideMeta = { title: "My slide" };
+export const meta: SlideMeta = { title: 'My slide' };
 export default [Cover] satisfies Page[];
 ```
 
@@ -52,7 +56,7 @@ This workspace ships with Claude Code skills preconfigured under `.claude/skills
 Optional `open-slide.config.ts` at the workspace root:
 
 ```ts
-import type { OpenSlideConfig } from "@open-slide/core";
+import type { OpenSlideConfig } from '@open-slide/core';
 
 const openSlideConfig: OpenSlideConfig = {
   port: 5173,

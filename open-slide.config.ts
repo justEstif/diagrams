@@ -1,7 +1,7 @@
-import type { OpenSlideConfig } from "@open-slide/core";
+import type { OpenSlideConfig } from '@open-slide/core';
 
 const openSlideConfig: OpenSlideConfig = {
-  base: "/diagrams/",
+  base: '/diagrams/',
 };
 
 export default openSlideConfig;
