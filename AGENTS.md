@@ -1,28 +1,32 @@
-# Agents
+# open-slide — Agent Guide
 
-Working on diagrams in this repo — see `DESIGN.md` for the design system (pi.dev skin).
+You are authoring **slides** in this repo. Every slide is arbitrary React code that you write.
 
-## Formatting
+## Hard rules
 
-Format all HTML/MD/YAML files with Prettier before committing:
+- Put your slide under `slides/<kebab-case-id>/`.
+- The entry is `slides/<id>/index.tsx`.
+- Put slide-specific images/videos/fonts under `slides/<id>/assets/`. For assets reused across decks or themes (logos, avatars), use the global `assets/` folder and import via `@assets/...`.
+- Do **not** touch `package.json`, `open-slide.config.ts`, or other slides.
+- Do not add dependencies. Use only `react` and standard web APIs.
 
-```sh
-bunx prettier --write <file>
+## Which skill to use
+
+- **Drafting a new deck** — use the `create-slide` skill. It walks through scoping questions, structure, and hand-off.
+- **Applying inspector comments** (`@slide-comment` markers in a page) — use the `apply-comments` skill.
+- **Creating or extracting a theme** — use the `create-theme` skill. Themes live as markdown under `themes/<id>.md` and are read by `create-slide` before authoring.
+- **Resolving "this page" / "this element"** — when the user references the current slide or selection without naming it, consult the `current-slide` skill. It reads the dev server's `node_modules/.open-slide/current.json` to find which slide, page, and inspector-picked element they mean.
+- **Any other slide edit** — read the `slide-authoring` skill before writing. It is the technical reference for everything inside `slides/<id>/`: file contract, the 1920×1080 canvas, type scale, palette, layout, assets, self-review checklist, and anti-patterns. `create-slide` and `apply-comments` both defer to it for the _how_.
+
+Keep this file short: hard rules only. All deeper guidance lives in the skills above.
+
+## Updating skills
+
+The skills above are managed by `@open-slide/core`. Do not edit them in place. To pull the latest versions:
+
+```
+pnpm up @open-slide/core
+pnpm sync:skills
 ```
 
-A pre-commit hook in `.githooks/pre-commit` runs this automatically if hooks are
-installed (see below).
-
-## First-time setup (once per clone)
-
-```sh
-git config core.hooksPath .githooks
-```
-
-## Workflow
-
-1. Add a diagram as `name.html` in the root, or a subfolder for related diagrams
-   (subfolders group on the index; a subfolder `index.html` links the heading).
-2. Verify tokens against `DESIGN.md` — no ad-hoc colors.
-3. Commit & push. `index.html` regenerates automatically via the `update-index`
-   GitHub Action — never hand-edit it (changes will be overwritten).
+`pnpm dev` will also detect drift on startup and offer to sync. `pnpm sync:skills --dry-run` (via `pnpm exec open-slide sync:skills --dry-run`) previews changes without writing.
