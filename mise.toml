@@ -1,0 +1,9 @@
+[tools]
+hk = "1.58.1"
+node = "22"
+
+[env]
+_.path = ["node_modules/.bin"]
+
+[hooks]
+postinstall = "hk install --mise"
